@@ -1,0 +1,37 @@
+// This is a basic Flutter widget test.
+//
+// To perform an interaction with a widget in your test, use the WidgetTester
+// utility in the flutter_test package. For example, you can send tap and scroll
+// gestures. You can also use WidgetTester to find child widgets in the widget
+// tree, read text, and verify that the values of widget properties are correct.
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:frontend/main.dart';
+import 'package:frontend/features/auth/presentation/providers/auth_notifier.dart';
+import 'package:frontend/core/common/entities/user.dart';
+
+class _TestAuthNotifier extends AuthNotifier {
+  @override
+  Future<User?> build() async => null;
+}
+
+void main() {
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+  });
+
+  testWidgets('App boots to auth wrapper', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [authNotifierProvider.overrideWith(_TestAuthNotifier.new)],
+        child: const MyApp(),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.byType(MyApp), findsOneWidget);
+  });
+}

@@ -1,0 +1,29 @@
+**/.venv
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.ruff_cache
+**/.ipynb_checkpoints
+
+# Build artifacts
+**/build/
+**/dist/
+**/*.egg-info/
+
+# Version control
+.git
+.gitignore
+.cursor/
+
+# Environment files
+.env
+*.env
+
+# Local IDE settings
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+

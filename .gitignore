@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+dist/
+build/
+.venv/
+*.egg-info/
+
+# Node / Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+.gradle/
+android/.gradle/
+android/app/build/
+ios/Pods/
+ios/.symlinks/
+macos/Pods/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDEs
+.idea/
+.vscode/
+.DS_Store
+
+# Databases & Logs
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.log
+debug.log
+output.log
+
+# Sensitive App Secrets
+apps/frontend/lib/core/secrets/app_secrets.dart
+
+# Root-level Documentation (except README)
+/*.md
+!/README.md

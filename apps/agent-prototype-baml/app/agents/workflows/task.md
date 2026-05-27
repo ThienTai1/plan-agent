@@ -1,0 +1,19 @@
+- `[x]` **Phase 1: PowerSync & Sync Manager**
+  - `[x]` Tạo `SyncManager` provider để điều khiển kết nối dựa trên Pro status.
+  - `[x]` Refactor `powersync.dart` để tách phần Init DB và phần Connect Sync.
+- `[x]` **Phase 2: Chat Feature Restriction**
+  - `[x]` Củng cố `ChatRepositoryImpl` thành repository local-first.
+  - `[x]` Implement Logic lưu chat vào local DB cho Free users. (Rate limit: 5 msg/ngày).
+- `[x]` **Phase 3: UI & UX**
+  - `[x]` Cập nhật Subscription Page (giá 79K VND, Cloud Sync).
+  - `[x]` Tạo `SyncStatusChip`.
+- `[x]` **Phase 4: Agent Harness via WebSocket**
+  - `[x]` **Backend (agent-service)**:
+    - `[x]` Tạo WebSocket endpoint `/v4/chat/ws` với JWT Auth.
+    - `[x]` Cấu hình LangGraph Interrupt cho Client-side tools.
+    - `[x]` Xử lý luồng đợi phản hồi từ Client trong vòng lặp Agent.
+  - `[x]` **Frontend (Flutter)**:
+    - `[x]` Chuyển đổi Chat sang `WebSocketChannel`.
+    - `[x]` Triển khai bộ giải mã và thực thi Tool local (Search, Create, Update...).
+- `[x]` **Phase 5: Website & Cross-device Strategy**
+  - `[x]` Tài liệu hóa chiến lược vận hành cho Web (xem tại walkthrough.md).

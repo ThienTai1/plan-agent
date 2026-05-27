@@ -1,0 +1,46 @@
+# Walkthrough: Hierarchical Agent + Chainlit + HITL
+
+## Architecture
+
+```mermaid
+graph TD
+    A[User Message] --> B[🎯 Supervisor]
+    B --> C[📋 Specialist]
+    C --> D[📝 Planner]
+    D --> E[⚡ Executor]
+    E --> F{🛡️ HITL Approval}
+    F -->|Approve| G[🔧 Execute Tool]
+    F -->|Reject| H[⏭️ Skip]
+    G --> I[🧐 Validator]
+    H --> I
+    I -->|NEXT_STEP| E
+    I -->|RETRY| E
+    I -->|REPLAN| D
+    I -->|FINISH| J[💬 Responsor]
+    J --> K[Final Answer]
+```
+
+## HITL in Action
+
+Before executing any tool, the agent pauses and shows **Approve/Reject** buttons:
+
+![HITL Approval Dialog](file:///Users/tai.pham/.gemini/antigravity/brain/a6ae8710-4789-427d-9cf3-7c47ed57935f/hitl_screenshot.png)
+
+![HITL Demo Recording](file:///Users/tai.pham/.gemini/antigravity/brain/a6ae8710-4789-427d-9cf3-7c47ed57935f/hitl_demo.webp)
+
+## How to Run
+
+```bash
+cd apps/agent-service
+uv run chainlit run chainlit_app.py -w --port 8001
+```
+
+Then open **http://localhost:8001** in your browser.
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| [chainlit_app.py](file:///Users/tai.pham/Project/planning_agent/apps/agent-service/chainlit_app.py) | Chainlit UI with HITL |
+| [hierarchical_graph.py](file:///Users/tai.pham/Project/planning_agent/apps/agent-service/app/agents/workflows/hierarchical_graph.py) | Core agent graph |
+| [routes.py](file:///Users/tai.pham/Project/planning_agent/apps/agent-service/app/api/routes.py) | REST API (V4) |

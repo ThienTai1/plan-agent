@@ -1,0 +1,25 @@
+services:
+  agent-service:
+    build:
+      context: ../../
+      dockerfile: infra/docker/agent-service.Dockerfile
+    container_name: agent-service
+    ports:
+      - "8100:8100"
+    env_file:
+      - ../.env.agent
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: redis:7-alpine
+    container_name: agent-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5

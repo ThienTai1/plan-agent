@@ -1,0 +1,13 @@
+services:
+  agent-service:
+    build:
+      context: ../../ # Build context is the monorepo root
+      dockerfile: apps/agent-service/Dockerfile
+    container_name: agent-service
+    ports:
+      - "8100:8100"
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ./.env:/app/apps/agent-service/.env

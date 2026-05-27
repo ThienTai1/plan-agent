@@ -1,8 +1,15 @@
 # Planning Agent Monorepo
 
-Welcome to the **Planning Agent Monorepo**! This repository hosts the entire, unified codebase of the Planning Agent project. It integrates the Flutter mobile client (Frontend), a FastAPI-based API Gateway/BFF, multiple Python-based microservices (agent, calendar, auth), shared Python libraries, and infrastructure configurations (Docker, Kubernetes manifests).
+Welcome to the **Planning Agent Monorepo**! This repository hosts the complete, unified codebase of the **Planning Agent** — an advanced, production-grade, AI-powered personal planning and scheduling assistant ecosystem designed to deliver cognitive automation, intelligent task orchestration, and seamless calendar management.
 
-The repository is structured to ensure a fast, synchronized, and highly secure developer experience.
+By combining cutting-edge AI architectures with a robust enterprise-ready microservices layout, the Planning Agent ecosystem integrates:
+* **Advanced Multi-Agent Orchestration:** Powered by **LangGraph** and **LangChain** in `agent-orchestrator`, supporting stateful multi-turn reasoning, streaming responses, and real-time distributed tool execution on the client.
+* **Type-Safe Prompt Engineering & Structured Outputs:** Powered by **BoundaryML (BAML)** in `agent-prototype-baml` to deliver high-performance, structured LLM parses and robust, reliable outputs.
+* **Reactive Flutter Client:** A modern Riverpod-architected, offline-ready, cross-platform Flutter application with a smooth, high-fidelity user interface supporting real-time assistant chat, task scheduling, and user profile management.
+* **Modular Microservices Infrastructure:** A secure gateway and BFF (Backend-for-Frontend) built on **FastAPI**, connecting calendar integrations, JWT-based authentication, and shared common libraries (`libs/python-common`).
+* **Production-Ready Deployment Configurations:** Fully containerized Docker Compose configurations for local development and scalable Kubernetes manifests for high-availability cloud deployments.
+
+This repository is structured as a monorepo to ensure tight synchronization, streamlined dependency management, and a secure, enterprise-grade developer experience.
 
 ---
 

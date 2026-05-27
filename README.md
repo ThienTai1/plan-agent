@@ -1,13 +1,13 @@
 # Planning Agent Monorepo
 
-Welcome to the **Planning Agent Monorepo**! This repository hosts the complete, unified codebase of the **Planning Agent** — an advanced, production-grade, AI-powered personal planning and scheduling assistant ecosystem designed to deliver cognitive automation, intelligent task orchestration, and seamless calendar management.
+Welcome to the **Planning Agent Monorepo**! This repository hosts the complete, unified codebase of the **Planning Agent** — a production-grade, AI-powered personal scheduling and planning assistant ecosystem designed to deliver cognitive automation, intelligent task orchestration, and calendar management.
 
-By combining cutting-edge AI architectures with a robust enterprise-ready microservices layout, the Planning Agent ecosystem integrates:
-* **Advanced Multi-Agent Orchestration:** Powered by **LangGraph** and **LangChain** in `agent-orchestrator`, supporting stateful multi-turn reasoning, streaming responses, and real-time distributed tool execution on the client.
-* **Type-Safe Prompt Engineering & Structured Outputs:** Powered by **BoundaryML (BAML)** in `agent-prototype-baml` to deliver high-performance, structured LLM parses and robust, reliable outputs.
-* **Reactive Flutter Client:** A modern Riverpod-architected, offline-ready, cross-platform Flutter application with a smooth, high-fidelity user interface supporting real-time assistant chat, task scheduling, and user profile management.
-* **Modular Microservices Infrastructure:** A secure gateway and BFF (Backend-for-Frontend) built on **FastAPI**, connecting calendar integrations, JWT-based authentication, and shared common libraries (`libs/python-common`).
-* **Production-Ready Deployment Configurations:** Fully containerized Docker Compose configurations for local development and scalable Kubernetes manifests for high-availability cloud deployments.
+By combining cutting-edge AI architectures with a robust, enterprise-ready microservices design, the Planning Agent ecosystem brings together:
+* **Advanced Multi-Agent Orchestration:** Driven by **LangGraph** and **LangChain** within `agent-orchestrator` to support stateful multi-turn reasoning, streaming responses, and real-time, client-side distributed tool execution.
+* **Type-Safe Prompt Engineering & Structured Outputs:** Utilizes **BoundaryML (BAML)** in `agent-prototype-baml` to deliver high-performance LLM integration, type-safe schema validation, and highly reliable structured outputs.
+* **Reactive Flutter Client:** A modern, offline-first mobile app built with **Riverpod**, featuring a high-fidelity user experience, real-time AI assistant chat, task scheduling, and smooth state updates.
+* **Enterprise Microservices Architecture:** A secure API Gateway and BFF (Backend-for-Frontend) powered by **FastAPI** that integrates JWT authentication, calendar synchronizations, and shared common libraries (`libs/python-common`).
+* **Infrastructure & Cloud Deployments:** Pre-configured **Docker Compose** stacks for instant local orchestration and production-ready **Kubernetes** manifests for scalable, high-availability cloud deployments.
 
 This repository is structured as a monorepo to ensure tight synchronization, streamlined dependency management, and a secure, enterprise-grade developer experience.
 

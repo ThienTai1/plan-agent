@@ -1,56 +1,58 @@
 # Planning Agent Monorepo
 
-Chào mừng bạn đến với **Planning Agent Monorepo**! Đây là kho lưu trữ hợp nhất (monorepo) quản lý toàn bộ hệ thống của dự án Planning Agent bao gồm: ứng dụng di động Flutter (Frontend), cổng API Gateway/BFF dựa trên FastAPI, các dịch vụ microservices (agent, calendar, auth), các thư viện Python dùng chung và các tài nguyên hạ tầng (Docker, Kubernetes manifests).
+Welcome to the **Planning Agent Monorepo**! This repository hosts the entire, unified codebase of the Planning Agent project. It integrates the Flutter mobile client (Frontend), a FastAPI-based API Gateway/BFF, multiple Python-based microservices (agent, calendar, auth), shared Python libraries, and infrastructure configurations (Docker, Kubernetes manifests).
 
-Dự án này được thiết kế và cấu trúc nhằm mang lại trải nghiệm phát triển local đồng bộ, nhanh chóng và an toàn nhất.
+The repository is structured to ensure a fast, synchronized, and highly secure developer experience.
 
 ---
 
-## 📁 Cấu trúc Thư mục Dự án
+## 📁 Repository Directory Structure
 
 ```text
 .
 ├── apps/
-│   ├── frontend/              # 📱 Ứng dụng di động Flutter (Frontend Client)
-│   ├── agent-orchestrator/    # 🤖 AI Agent Orchestrator chính thức (LangGraph)
-│   ├── agent-prototype-baml/  # 🧪 AI Agent phiên bản thử nghiệm (BAML)
-│   ├── calendar-service/      # 📅 Dịch vụ tích hợp Lịch (Google Calendar, etc.)
-│   └── auth-service/          # 🔑 Dịch vụ Xác thực người dùng (Authentication)
+│   ├── frontend/              # 📱 Flutter mobile application (Frontend Client)
+│   ├── agent-orchestrator/    # 🤖 Production AI Agent Orchestrator (LangGraph)
+│   ├── agent-prototype-baml/  # 🧪 Legacy/Prototype AI Agent (BAML)
+│   ├── calendar-service/      # 📅 Calendar Integration Service (Google Calendar, etc.)
+│   └── auth-service/          # 🔑 Authentication Service
 ├── libs/
-│   ├── python-common/         # 📦 Thư viện Python dùng chung (cấu hình, logs, schemas)
-│   └── api-contracts/         # 📑 File thiết kế OpenAPI dùng chung giữa các team
+│   ├── python-common/         # 📦 Shared Python Library (config, logging, schemas)
+│   └── api-contracts/         # 📑 OpenAPI Contracts shared across teams
 ├── infra/
-│   ├── docker/                # 🐳 Dockerfiles cho từng dịch vụ
-│   ├── k8s/                   # ☸️ Kubernetes manifests để deploy lên cụm
-│   └── scripts/               # 🛠️ Script hỗ trợ vận hành (dev_up/dev_down)
-├── .env.example               # 📄 File mẫu biến môi trường gốc
-└── README.md                  # 📘 Tài liệu hướng dẫn này
+│   ├── docker/                # 🐳 Dockerfiles per microservice
+│   ├── k8s/                   # ☸️ Kubernetes Deployment Manifests
+│   └── scripts/               # 🛠️ Operation Helper Scripts (dev_up/dev_down)
+├── .env.example               # 📄 Core Environment Variable Template
+└── README.md                  # 📘 This documentation file
 ```
 
-Mỗi dịch vụ Python được chuẩn hóa cấu trúc thư mục `app/` để dễ dàng làm quen và mở rộng:
+Each Python-based microservice implements a standardized layout under the `app/` folder for consistency and easy onboarding:
 ```text
 app/
 ├── main.py            # FastAPI Entry Point
-├── api/               # Router chứa các endpoint phân theo domain/phiên bản
-├── core/              # Các cấu hình và module log bổ trợ
-├── models/            # Schema dữ liệu Pydantic mô tả API của dịch vụ
-├── services/          # Các HTTP/RPC clients giao tiếp với các dịch vụ khác
-└── ...                # Thư mục đặc thù (agent/, db/, providers/, ...)
+├── api/               # Routers containing endpoints organized by domain/version
+├── core/              # Configuration and Logger helpers
+├── models/            # Pydantic models describing service request/response API contracts
+├── services/          # HTTP/RPC clients for cross-service communication
+└── ...                # Service-specific directories (agent/, db/, providers/, ...)
 ```
 
 ---
 
-## 🔒 Hướng dẫn Thiết lập Bảo mật & Biến Môi trường
+## 🔒 Security & Environment Variable Configuration
 
-Dự án đã được cấu hình bảo mật nghiêm ngặt. Để chạy được dự án ở máy cục bộ (local), bạn cần tạo các file cấu hình chứa key thật từ các file mẫu tương ứng (các file chứa key thật này đã bị chặn bởi Git và không bao giờ bị push lên GitHub).
+To secure sensitive keys and access tokens (such as OpenAI/Gemini/OpenRouter API Keys, PostgreSQL passwords, and Supabase credentials), this codebase utilizes strict security rules. Actual configuration files are blocked by Git to prevent public exposure. 
 
-### 1. Thiết lập cho Gốc Dự án
-Sao chép file mẫu ở gốc dự án và điền các cấu hình cần thiết:
+To run the applications locally, copy and configure the respective templates:
+
+### 1. Root Configuration Setup
+Copy the core environment variable template at the root directory and configure it:
 ```bash
 cp .env.example .env
 ```
 
-### 2. Thiết lập cho Backend Microservices
+### 2. Backend Microservices Configuration Setup
 * **Agent Orchestrator:**
   ```bash
   cd apps/agent-orchestrator
@@ -61,15 +63,15 @@ cp .env.example .env
   cd apps/agent-prototype-baml
   cp .env.example .env
   ```
-*(Hãy điền các API Key của OpenAI, Gemini, OpenRouter, Supabase hoặc thông tin kết nối DB của bạn vào các file `.env` vừa tạo).*
+*(Open the newly created `.env` files and supply your real API Keys and connection strings).*
 
-### 3. Thiết lập cho Ứng dụng Flutter (Frontend)
-Tạo file cấu hình bí mật cho ứng dụng di động:
+### 3. Flutter Frontend Configuration Setup
+Create the localized secrets configuration file for the mobile application:
 ```bash
 cd apps/frontend/lib/core/secrets
 cp app_secrets.dart.example app_secrets.dart
 ```
-Mở file `app_secrets.dart` và thay thế các chuỗi giữ chỗ bằng các thông số thực tế của bạn:
+Edit `app_secrets.dart` and replace the placeholder values with your actual project keys:
 ```dart
 class AppSecrets {
   static const supabaseUrl = 'YOUR_SUPABASE_URL';
@@ -80,46 +82,46 @@ class AppSecrets {
 
 ---
 
-## 🚀 Hướng dẫn Cài đặt & Vận hành Cục bộ
+## 🚀 Getting Started & Local Development
 
-### Yêu cầu Hệ thống
-Đảm bảo máy của bạn đã cài đặt các công cụ sau:
-* **Python** (Phiên bản >= 3.10) kèm theo trình quản lý gói [uv](https://github.com/astral-sh/uv).
-* **Flutter SDK** (cho môi trường Flutter Mobile).
-* **Docker Desktop** (để chạy cụm container cục bộ).
+### System Requirements
+Before running the system, please ensure you have the following tools installed:
+* **Python** (version >= 3.10) with [uv](https://github.com/astral-sh/uv) package manager.
+* **Flutter SDK** (for running the Flutter mobile application).
+* **Docker Desktop** (for running the containerized infrastructure).
 
-### Các bước khởi động
+### Running the Services
 
-#### Bước 1: Đồng bộ hóa Thư viện dùng chung (Python Common)
-Di chuyển vào thư mục thư viện dùng chung, cài đặt dependencies và thiết lập chế độ chỉnh sửa trực tiếp (editable mode):
+#### Step 1: Install & Sync the Shared Python Library
+Navigate to the shared library directory, sync the packages, and establish an editable environment:
 ```bash
 cd libs/python-common
 uv sync
 ```
 
-#### Bước 2: Cài đặt Dependencies cho các dịch vụ Backend
-Đối với bất kỳ dịch vụ nào trong thư mục `apps/`, di chuyển vào thư mục đó và chạy lệnh cài đặt:
+#### Step 2: Install Microservice Dependencies
+To run any Python service under the `apps/` directory, navigate to the specific service folder and sync packages:
 ```bash
-cd apps/agent-orchestrator # Ví dụ dịch vụ chính
+cd apps/agent-orchestrator # Example service
 uv sync
 ```
 
-#### Bước 3: Khởi động hệ thống Backend bằng Docker Compose
-Chúng tôi cung cấp bộ script đóng gói sẵn trong thư mục `infra/scripts/` để chạy nhanh các container (FastAPI, Postgres, Redis, RabbitMQ, v.v.):
+#### Step 3: Run the Backend Services Stack
+We provide automated helper scripts located in the `infra/scripts/` directory to quickly spin up dependencies (FastAPI, PostgreSQL, Redis, RabbitMQ, etc.):
 ```bash
-# Khởi động toàn bộ cụm services cục bộ
+# Start the complete backend container stack
 ./infra/scripts/dev_up.sh
 
-# Dừng toàn bộ cụm services
+# Stop and tear down all container resources
 ./infra/scripts/dev_down.sh
 ```
-Nếu bạn muốn chạy đơn lẻ một service Python không qua Docker để tiện debug:
+If you wish to spin up a single service directly in reload mode for debugging:
 ```bash
 uv run uvicorn app.main:app --reload
 ```
 
-#### Bước 4: Chạy ứng dụng di động Flutter
-Di chuyển vào thư mục frontend, tải các gói thư viện và chạy ứng dụng trên thiết bị mô phỏng hoặc thiết bị thật:
+#### Step 4: Run the Flutter Mobile Application
+Navigate to the frontend directory, install Flutter packages, and launch the application on a simulator or physical device:
 ```bash
 cd apps/frontend
 flutter pub get
@@ -128,27 +130,27 @@ flutter run
 
 ---
 
-## ☁️ Quy trình Deploy an toàn lên Google Cloud Platform (GCP)
+## ☁️ Secure GCP Cloud Run Deployment
 
-Để deploy dịch vụ `agent-orchestrator` lên Google Cloud Run, chúng tôi cung cấp script deploy thông minh tại [deploy.sh](file:///Users/taipham/Projects/planning_agent/planning_agent/apps/agent-orchestrator/scripts/deploy.sh).
+To deploy the production-ready `agent-orchestrator` service to Google Cloud Run, we provide a smart deployment script located at [deploy.sh](file:///Users/taipham/Projects/planning_agent/planning_agent/apps/agent-orchestrator/scripts/deploy.sh).
 
-Script này sẽ tự động phát hiện GCP Project đang hoạt động trên terminal của bạn thông qua lệnh `gcloud` mà không yêu cầu bạn phải ghi cứng bất kỳ thông tin nhạy cảm nào vào file script:
+This script dynamically queries your local active GCP project authenticated in the `gcloud` CLI instead of utilizing hardcoded keys:
 
 ```bash
-# Di chuyển tới thư mục chứa script
+# Navigate to the deployment scripts folder
 cd apps/agent-orchestrator/scripts
 
-# Cấp quyền thực thi và chạy deploy
+# Grant execution permissions and run deployment
 chmod +x deploy.sh
 ./deploy.sh
 ```
 
 ---
 
-## 🛠️ Công cụ & Quy chuẩn Code
+## 🛠️ Code Quality & Tooling
 
-* **Python:** Sử dụng `ruff` để kiểm tra lỗi cú pháp (linter) và định dạng code (formatter). Các bộ test tự động được viết bằng `pytest`.
-* **Flutter:** Tuân thủ chặt chẽ theo các quy chuẩn phân tích cú pháp tĩnh được thiết lập sẵn tại file `analysis_options.yaml` trong thư mục frontend.
-* **Quy chuẩn chia sẻ:** Các logic chung liên quan tới Logger, Middleware, Cấu hình hệ thống phải được phát triển trong `libs/python-common/` và import sang các dịch vụ thay vì viết lại.
+* **Python:** Uses `ruff` for fast linting and formatting. Unit and integration test suites are written and verified with `pytest`.
+* **Flutter:** Follows static Dart code rules configured in the localized `analysis_options.yaml` file in the frontend folder.
+* **Shared Logic:** Core modules regarding logging, shared configurations, and mutual schemas must be developed in the `libs/python-common/` directory to prevent duplications.
 
-Chúc bạn có những trải nghiệm lập trình tuyệt vời với Planning Agent! Nếu gặp bất kỳ khó khăn nào, hãy mở ticket hoặc liên hệ trực tiếp với đội ngũ phát triển.
+Have a great time hacking and developing on the Planning Agent! If you run into any issues, please open an issue or reach out to the development team directly.
